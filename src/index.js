@@ -2,6 +2,7 @@ const express = require('express')
 const morgan = require('morgan')
 const { engine } = require('express-handlebars')
 const path = require('path')
+const route = require('./routes/index')
 const app = express()
 const port = 3000
 
@@ -23,19 +24,8 @@ app.use(express.urlencoded({
 }))
 app.use(express.json())
 
-
-app.post('/', (req, res) => {
-  console.log(req.body)
-  res.render('home');
-})
-
-app.get('/', (req, res) => {
-  res.render('home');
-})
-
-app.get('/news', (req, res) => {
-  res.render('news');
-})
+//All route 
+route(app);
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
