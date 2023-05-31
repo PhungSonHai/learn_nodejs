@@ -5,6 +5,10 @@ const path = require('path')
 const route = require('./routes/index')
 const app = express()
 const port = 3000
+const db = require('./config/db')
+
+//Connect DB
+db.connect();
 
 //logger
 app.use(morgan('combined'))
@@ -17,7 +21,7 @@ app.engine('hbs', engine({
   extname: '.hbs'
 }))
 app.set('view engine', 'hbs')
-app.set('views', path.join(__dirname, 'resources/views'))
+app.set('views', path.join(__dirname, 'resources', 'views'))
 
 app.use(express.urlencoded({
   extended: true
