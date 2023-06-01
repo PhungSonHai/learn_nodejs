@@ -1,16 +1,20 @@
-<div class="mt-5">
+<div class="mt-3">
     <div class="row">
-        <div class="col-sm-6 col-md-4">
-            {{#each courses}}
-                <div class="card">
-                    <img src="{{this.image}}" class="card-img-top" alt="{{this.name}}">
-                    <div class="card-body">
+        {{#each courses}}
+        <div class="col-sm-6 col-md-4 mt-5">
+            <div class="card">
+                <a href="/course/{{this.slug}}">
+                    <img src="img/{{this.image}}" width="100" class="card-img-top" alt="{{this.name}}">
+                </a>
+                <div class="card-body">
+                    <a href="/course/{{this.slug}}" class="text-decoration-none">
                         <h5 class="card-title">{{this.name}}</h5>
-                        <p class="card-text">{{this.description}}</p>
-                        <a href="#" class="btn btn-primary">Đăng kí học</a>
-                    </div>
+                    </a>
+                    <p class="card-text">{{this.description}}</p>
+                    <a href="#" class="btn btn-primary">Đăng kí học</a>
                 </div>
-            {{/each}}
+            </div>
         </div>
+        {{/each}}
     </div>
 </div>
