@@ -8,6 +8,23 @@ class CourseController {
             })
             .catch(next)
     }
+
+    create(req, res, next) {
+        try 
+        {
+            res.render('courses/course-create')
+        } 
+        catch (error) 
+        {
+            next(error)
+        }
+    }
+
+    async store(req, res, next) {
+        await Course.create(req.body)
+            .then(() => res.redirect('/'))
+            .catch(next)
+    }
 }
 
 module.exports = new CourseController;
