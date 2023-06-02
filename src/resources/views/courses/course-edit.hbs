@@ -1,0 +1,18 @@
+<div class="mt-5">  
+    <h2 class="text-center">Edit Course</h2>
+    <form method="POST" action="/course/{{course._id}}">
+        <div class="mb-3">
+            <label for="nameCourse" class="form-label">Name</label>
+            <input type="text" name="name" value="{{course.name}}" class="form-control" id="nameCourse">
+        </div>
+        <div class="mb-3">
+            <label for="descriptionCourse" class="form-label">Description</label>
+            <input type="text" name="description" value="{{course.description}}" class="form-control" id="descriptionCourse">
+        </div>
+        <div class="mb-3">
+            <label for="videoIdCourse" class="form-label">Video ID</label>
+            <input type="text" name="videoId" value="{{course.videoId}}" class="form-control" id="videoIdCourse">
+        </div>
+        <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
+    </form>
+</div>

@@ -18,7 +18,10 @@ app.use(express.static(path.join(__dirname, 'public')))
 
 //template handlebars
 app.engine('hbs', engine({ 
-  extname: '.hbs'
+  extname: '.hbs',
+  helpers: {
+    increase: (a, b) => a + b,
+  }
 }))
 app.set('view engine', 'hbs')
 app.set('views', path.join(__dirname, 'resources', 'views'))

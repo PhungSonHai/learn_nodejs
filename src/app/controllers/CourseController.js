@@ -25,6 +25,18 @@ class CourseController {
             .then(() => res.redirect('/'))
             .catch(next)
     }
+
+    edit(req, res, next) {
+        Course.findById(req.params.id).lean().exec()
+            .then(course => res.render('courses/course-edit', { course }))
+            .catch(next)
+    }
+
+    handleEdit(req, res, next) {
+        Course.findByIdAndUpdate(req.params.id, req.body)
+            .then(() => res.redirect('/'))
+            .catch(next)
+    }
 }
 
 module.exports = new CourseController;
