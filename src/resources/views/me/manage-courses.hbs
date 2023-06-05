@@ -18,10 +18,46 @@
                         <a href="/course/{{this._id}}/edit" class="text-decoration-none">
                             <button type="button" class="btn btn-outline-secondary">Edit</button>
                         </a>
-                        <button type="button" class="btn btn-outline-danger">Delete</button>
+                        <button type="button" class="btn btn-outline-danger ms-2" id="btnDeleteCourse" data-bs-toggle="modal" data-id="{{this._id}}" data-bs-target="#modalDeleteCourse">
+                            Delete
+                        </button>
                     </td>
                 </tr>
             {{/each}}
         </tbody>
     </table>
 </div>
+
+<!-- Modal confirm delete course -->
+<div class="modal fade" id="modalDeleteCourse" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Warning</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Are you sure delete course?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" id="btnConfirmDelete" class="btn btn-danger">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<form name="form-delete-course" method="POST"></form>
+
+<script type="text/javascript">
+    var idDelete;
+    document.querySelector("#modalDeleteCourse").addEventListener('show.bs.modal', function (event) {
+        idDelete = document.getElementById('btnDeleteCourse').getAttribute('data-id')
+    })
+
+    btnConfirmDelete.onclick = function() {
+        var formDelete = document.forms['form-delete-course'];
+        formDelete.setAttribute('action', '/course/' + idDelete + '/delete')
+    }
+
+</script>
