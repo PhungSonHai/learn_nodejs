@@ -1,6 +1,6 @@
 <div class="mt-5">  
     <h2 class="text-center">Edit Course</h2>
-    <form method="POST" action="/course/{{course._id}}">
+    <form method="POST" action="/course/{{course._id}}?_method=PUT">
         <div class="mb-3">
             <label for="nameCourse" class="form-label">Name</label>
             <input type="text" name="name" value="{{course.name}}" class="form-control" id="nameCourse">

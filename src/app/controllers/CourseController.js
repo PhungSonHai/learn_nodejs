@@ -32,9 +32,27 @@ class CourseController {
             .catch(next)
     }
 
+    restore(req, res, next) {
+        Course.restore({ _id: req.params.id })
+            .then(() => res.redirect('/me/trash/courses'))
+            .catch(next)
+    }
+
     handleEdit(req, res, next) {
         Course.findByIdAndUpdate(req.params.id, req.body)
             .then(() => res.redirect('/'))
+            .catch(next)
+    }
+
+    handleDelete(req, res, next) {
+        Course.delete({ _id: req.params.id })
+            .then(() => res.redirect('/me/manage/courses'))
+            .catch(next)
+    }
+
+    forceDelete(req, res, next) {
+        Course.findByIdAndDelete({ _id: req.params.id })
+            .then(() => res.redirect('/me/trash/courses'))
             .catch(next)
     }
 }

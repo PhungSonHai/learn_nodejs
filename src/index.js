@@ -6,12 +6,15 @@ const route = require('./routes/index')
 const app = express()
 const port = 3000
 const db = require('./config/db')
+const methodOverride = require('method-override')
 
 //Connect DB
 db.connect();
 
 //logger
 app.use(morgan('combined'))
+
+app.use(methodOverride('_method'))
 
 //static files
 app.use(express.static(path.join(__dirname, 'public')))

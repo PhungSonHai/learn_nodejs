@@ -1,7 +1,6 @@
 <div class="mt-5">
     <div class="mb-4 d-flex align-items-center justify-content-between">
-        <h1>List my courses</h1>
-        <a href="/me/trash/courses" class="text-decoration-none fw-bold">Trash ({{countDeleted}})</a>
+        <h1>List courses deleted</h1>
     </div>
 
     <table class="table">
@@ -20,19 +19,17 @@
                     <td>{{this.name}}</td>
                     <td>{{this.description}}</td>
                     <td class="text-end">
-                        <a href="/course/{{this._id}}/edit" class="text-decoration-none">
-                            <button type="button" class="btn btn-outline-secondary">Edit</button>
-                        </a>
+                        <button type="button" id="btn-restore" data-id="{{this._id}}" class="btn btn-outline-secondary">Restore</button>
                         <button type="button" class="btn btn-outline-danger ms-2" id="btnDeleteCourse" data-bs-toggle="modal" data-id="{{this._id}}" data-bs-target="#modalDeleteCourse">
-                            Delete
+                            Force Delete
                         </button>
                     </td>
                 </tr>
             {{else}}
                 <tr>
                     <th class="text-center" colspan="4">
-                        No courses available. 
-                        <a class="text-decoration-none" href="/course/create">Post course</a>
+                        No courses deleted. 
+                        <a class="text-decoration-none" href="/me/manage/courses">List my courses</a>
                     </th>
                 </tr>
             {{/each}}
@@ -40,7 +37,7 @@
     </table>
 </div>
 
-<!-- Modal confirm delete course -->
+<!-- Modal confirm force delete-->
 <div class="modal fade" id="modalDeleteCourse" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
@@ -53,23 +50,34 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" id="btnConfirmDelete" class="btn btn-danger">Delete</button>
+        <button type="button" id="btnConfirmDelete" class="btn btn-danger">Force Delete</button>
       </div>
     </div>
   </div>
 </div>
 
 <form name="form-delete-course" method="POST"></form>
+<form name="form-restore-course" method="POST"></form>
 
 <script type="text/javascript">
-    var idDelete;
-    document.querySelector("#modalDeleteCourse").addEventListener('show.bs.modal', function (event) {
-        idDelete = document.getElementById('btnDeleteCourse').getAttribute('data-id')
-    })
+    document.addEventListener('DOMContentLoaded', function() {
+        var btnRestore = $('#btn-restore')
 
-    btnConfirmDelete.onclick = function() {
-        var formDelete = document.forms['form-delete-course'];
-        formDelete.setAttribute('action', '/course/' + idDelete + '?_method=DELETE')
-        formDelete.submit()
-    }
+        btnRestore.click(function(e) {
+            var formRestore = document.forms['form-restore-course'];
+            formRestore.setAttribute('action', '/course/' + $(this).data('id') + '/restore?_method=PATCH')
+            formRestore.submit()
+        })
+
+        var idDelete;
+        document.querySelector("#modalDeleteCourse").addEventListener('show.bs.modal', function (event) {
+            idDelete = document.getElementById('btnDeleteCourse').getAttribute('data-id')
+        })
+
+        btnConfirmDelete.onclick = function() {
+            var formDelete = document.forms['form-delete-course'];
+            formDelete.setAttribute('action', '/course/' + idDelete + '/forceDelete?_method=DELETE')
+            formDelete.submit()
+        }
+    })
 </script>
